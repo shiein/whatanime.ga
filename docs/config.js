@@ -1,14 +1,13 @@
-self.$config = {
+docute.init({
   landing: false,
   debug: false,
   repo: 'soruly/whatanime.ga',
   twitter: 'soruly',
-  url: 'https://whatanime.ga',
-  sidebar: false,
-  disableSidebarToggle: true,
+  sidebar: true,
+  disableSidebarToggle: false,
   nav: {
     default: []
   },
   icons: [],
   plugins: []
-}
+});

@@ -8,8 +8,8 @@
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/png" href="/favicon128.png" sizes="128x128">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/style.css" rel="stylesheet">
-<script src="/analytics.js" defer></script>
+<link href="/css/style.css" rel="stylesheet">
+<script src="/js/analytics.js" defer></script>
 </head>
 <body>
 <nav class="navbar header">
@@ -25,6 +25,70 @@
 </nav>
 <div class="container">
 <div class="page-header"><h1>Changelog</h1></div>
+
+<h3>Added auto black border crop</h3>
+<h6>13 Nov 2017</h6>
+<p>
+This will automatically detect and crop black borders on search image, significantly increase the accuracy on bad screenshots<br>
+This is applied to both web, telegram bot and all API clients<br>
+This is achieved by openCV using a simple python script
+</p>
+
+<h3>Telegram Channel</h3>
+<h6>26 Aug 2017</h6>
+<p>You can subscribe the <a href="https://telegram.me/whatanimeupdates">Telegram Channel</a> for database and news updates.</p>
+
+<h3>GIF and video support for Telegram Bot</h3>
+<h6>24 Aug 2017</h6>
+<p>You can now send GIF or video to the <a href="https://telegram.me/WhatAnimeBot">Telegram Bot</a>.</p>
+
+<h3>Group chat support for Telegram Bot</h3>
+<h6>23 Aug 2017</h6>
+<p>You can now add the <a href="https://telegram.me/WhatAnimeBot">Telegram Bot</a> to Telegram group. Use @ to mention the bot on any photo to search.</p>
+
+<h3>Fix search requests failed when Google Analytics is blocked</h3>
+<h6>5 Aug 2017</h6>
+<p>Identified and fixed an issue where browsers failed to search due to blocked scripts.</p>
+
+<h3>Added 2017-04 database dump</h3>
+<h6>26 Jul 2017</h6>
+<p>Database dump updated to 2017-04.</p>
+
+<h3>Added demo for the upcoming search engine update</h3>
+<h6>14 Jun 2017</h6>
+<p>Take a look at a demo on <a href="https://demo.whatanime.ga" target="_blank">https://demo.whatanime.ga</a></p>
+
+<h3>New Icon</h3>
+<h6>5 Jun 2017</h6>
+<p><img src="/favicon128.png" alt="favicon"><br>This is the new icon for whatanime.ga</p>
+
+<h3>2017 Presentation slides updates</h3>
+<h6>4 Jun 2017</h6>
+<p>Want to know more about whatanime.ga? Read the <a href="https://go-talks.appspot.com/github.com/soruly/slides/whatanime.ga-2017.slide" target="_blank">Presentation slides on June 2017</a>.</p>
+
+<h3>Search changes</h3>
+<h6>30 Apr 2017</h6>
+<p>You can now search scenes with any aspect ratio. Thumbnail preview also respect aspect ratio now. Recaptcha is removed, you must wait up to 10 minutes once you have reached search quota limit (20 search per 10 minutes). Homepage code has been re-written, the webpage now loads faster. And a new loading animation was added.</p>
+
+<h3>Search for more results</h3>
+<h6>23 Apr 2017</h6>
+<p>You can now keep searching the database for more results. Previously, the search would stop when it has found any result > 90% similarity. Now keep searching to discover more results with even higher similarity!</p>
+
+<h3>Search in specific season</h3>
+<h6>18 Apr 2017</h6>
+<p>You can now select a particular year / season to search. If you like this project, feel free to <a href="https://www.patreon.com/soruly">Support whatanime.ga on Patreon.</a></p>
+
+<h3>System maintenance</h3>
+<h6>15 Apr 2017</h6>
+<p>Server upgrade and cleanup was completed on 15 Apr 2017. An additional hard drive and new network adapter has been installed.</p>
+
+<h3>System status page</h3>
+<h6>14 Apr 2017</h6>
+<p>You can now see the system status in <a href="https://status.whatanime.ga">https://status.whatanime.ga</a> (Powered by UptimeRobot).</p>
+
+<h3>Partial service interruption</h3>
+<h6>23 Feb 2017</h6>
+<p>Anime info panel was not showing since Feb 21 21:13 UTC , the service has been restored on Feb 23 03:34 UTC.</p>
 
 <h3>Image proxy relocated</h3>
 <h6>21 Feb 2017</h6>

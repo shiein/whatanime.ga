@@ -2,49 +2,54 @@
 <html itemscope itemtype="http://schema.org/Webpage">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-<meta name="description" content="Search Anime by ScreenShot. Search over 500 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
+<meta name="description" content="Search Anime by ScreenShot. Search over 600 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
 <meta name="keywords" content="Anime Scene Search, Search by image, Anime Image Search, アニメのキャプ画像">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=995, initial-scale=1">
 <title>WAIT: What Anime Is This? - Anime Scene Search Engine</title>
 
+<?php
+$og_image = 'https://whatanime.ga/favicon128.png';
+if(isset($_GET["url"]) && filter_var($_GET["url"], FILTER_VALIDATE_URL))
+  $og_image = 'https://image.whatanime.ga/imgproxy?url='.$_GET["url"];
+?>
 <!-- Schema.org markup (Google) -->
 <meta itemprop="name" content="WAIT: What Anime Is This?">
-<meta itemprop="description" content="Anime Scene Search Engine. Search over 500 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
-<meta itemprop="image" content="https://whatanime.ga/favicon128.png">
+<meta itemprop="description" content="Anime Scene Search Engine. Search over 600 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
+<meta itemprop="image" content="<?php echo $og_image ?>">
 
 <!-- Twitter Card markup-->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@soruly">
 <meta name="twitter:title" content="WAIT: What Anime Is This?">
-<meta name="twitter:description" content="Anime Scene Search Engine. Search over 500 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
+<meta name="twitter:description" content="Anime Scene Search Engine. Search over 600 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
 <meta name="twitter:creator" content="@soruly">
 <!-- Twitter summary card with large image must be at least 280x150px -->
-<meta name="twitter:image" content="https://whatanime.ga/favicon128.png">
-<meta name="twitter:image:alt" content="Anime Scene Search Engine. Search over 500 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
+<meta name="twitter:image" content="<?php echo $og_image ?>">
+<meta name="twitter:image:alt" content="Anime Scene Search Engine. Search over 600 million images to lookup what anime, which episode, which moment the screenshot is taken from.">
 
 <!-- Open Graph markup (Facebook, Pinterest) -->
 <meta property="og:title" content="WAIT: What Anime Is This?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://whatanime.ga" />
-<meta property="og:image" content="https://whatanime.ga/favicon128.png" />
-<meta property="og:description" content="Anime Scene Search Engine. Search over 500 million images to lookup what anime, which episode, which moment the screenshot is taken from." />
+<meta property="og:image" content="<?php echo $og_image ?>" />
+<meta property="og:description" content="Anime Scene Search Engine. Search over 600 million images to lookup what anime, which episode, which moment the screenshot is taken from." />
 <meta property="og:site_name" content="whatanime.ga" />
 
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" type="image/png" href="/favicon128.png" sizes="128x128">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
-<link href="/style.css" rel="stylesheet">
-<link href="/index.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
+<link href="/css/index.css" rel="stylesheet">
 <link rel="dns-prefetch" href="https://image.whatanime.ga/">
-<script src="/recaptcha.js" defer></script>
-<script src="/analytics.js" defer></script>
+<script src="/js/analytics.js" async defer></script>
 </head>
 <body>
-<!--<div class="alert alert-warning">
+<div class="alert alert-info" style="position: relative; top: 10px; left: 10px; box-shadow: 0 0 20px 0px; width: 975px">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Scheduled Maintenance</strong> A server maintenance will be carried out on 22 Mar, 2016 01:30-09:30am (UTC)
-</div>-->
+<!--  Support whatanime.ga on Patreon! <a href="https://www.patreon.com/soruly" target="_blank">https://www.patreon.com/soruly</a> And tryout <a href="https://demo.whatanime.ga">https://demo.whatanime.ga</a>-->
+We have two Android Apps on Play Store! <a href="https://play.google.com/store/apps/details?id=com.maddog05.whatanime" target="_blank">WhatAnime</a> and <a href="https://play.google.com/store/apps/details?id=pw.janyo.whatanime" target="_blank">[Simplified Chinese] WhatAnime - 以图搜番</a>
+</div>
 <input id="autoSearch" type="checkbox" style="display: none;">
 <img id="originalImage" src="" crossorigin="anonymous" style="display: none;">
 <div class="row">
@@ -52,25 +57,129 @@
 <div id="main">
 <div class="noselect">
 <div id="loading" class="hidden">
-<span class="glyphicon glyphicon-repeat spinning"></span>
+<div id="loader" class="ripple"></div>
 </div>
 <canvas id="preview" width="640" height="360"></canvas>
-<video id="player" style="display:none" volume="1" autoplay></video>
+<video id="player" style="display:none" volume="0.5" autoplay></video>
 </div>
-<form action="" method="get">
+<div id="form">
 <span class="btn btn-default btn-file btn-sm">
 Browse a file <input type="file" id="file" name="files[]" />
 </span>
 <span id="instruction"> / Drag &amp; Drop Anime ScreenShot / Ctrl+V / Enter Image URL</span>
-<br>
-<input type="text" class="form-control" id="imageURL" placeholder="Image URL" style="margin:5px 0 5px 0">
-<div style="text-align: right">
-<span id="messageText" style="float:left;line-height:30px"></span>
-<label class="radio-inline"><input type="radio" name="fitRadio" id="fitWidthRadio" checked>Fit Width</label>
-<label class="radio-inline" style="margin-right:10px"><input type="radio" name="fitRadio" id="fitHeightRadio">Fit Height</label>
 <button id="flipBtn" type="button" class="btn btn-default btn-sm" disabled>
 <span class="glyphicon glyphicon-unchecked"></span> Flip Image
 </button>
+<br>
+<form method="post">
+<input type="url" pattern="https?://.+" name="imageURL" class="form-control" id="imageURL" placeholder="Image URL" style="margin:5px 0 5px 0">
+<input type="submit" id="submit" style="display:none">
+</form>
+<div style="text-align: right">
+<span id="messageText" style="float:left;line-height:30px"></span>
+<label for="seasonSelector" style="font-weight: inherit">Search in:</label>
+<select id="seasonSelector" class="form-control input-sm" style="display:inline-block; width:100px">
+<option value="*" selected>All</option>
+<option value="2000-*">2000</option>
+<option value="2001-*">2001</option>
+<option value="2002-*">2002</option>
+<option value="2003-*">2003</option>
+<option value="2004-*">2004</option>
+<option value="2005-*">2005</option>
+<option value="2006-*">2006</option>
+<option value="2007-*">2007</option>
+<option value="2008-*">2008</option>
+<option value="2009-*">2009</option>
+<option value="2010-*">2010</option>
+<option value="2011-*">2011</option>
+<option value="2012-*">2012</option>
+<option value="2013-*">2013</option>
+<option value="2014-*">2014</option>
+<option value="2015-*">2015</option>
+<option value="2016-*">2016</option>
+<option value="2017-*">2017</option>
+<option value="2018-*">2018</option>
+<option value="Movie/*">Movie</option>
+<option value="Others/*">Others</option>
+<option value="OVA/*">OVA</option>
+<option value="Sukebei/*">Sukebei</option>
+<option value="1970-1989/*">1970-1989</option>
+<option value="1990-1999/*">1990-1999</option>
+<option value="2000-01/*">2000-01</option>
+<option value="2000-04/*">2000-04</option>
+<option value="2000-07/*">2000-07</option>
+<option value="2000-10/*">2000-10</option>
+<option value="2001-01/*">2001-01</option>
+<option value="2001-04/*">2001-04</option>
+<option value="2001-07/*">2001-07</option>
+<option value="2001-10/*">2001-10</option>
+<option value="2002-01/*">2002-01</option>
+<option value="2002-04/*">2002-04</option>
+<option value="2002-07/*">2002-07</option>
+<option value="2002-10/*">2002-10</option>
+<option value="2003-01/*">2003-01</option>
+<option value="2003-04/*">2003-04</option>
+<option value="2003-07/*">2003-07</option>
+<option value="2003-10/*">2003-10</option>
+<option value="2004-01/*">2004-01</option>
+<option value="2004-04/*">2004-04</option>
+<option value="2004-07/*">2004-07</option>
+<option value="2004-10/*">2004-10</option>
+<option value="2005-01/*">2005-01</option>
+<option value="2005-04/*">2005-04</option>
+<option value="2005-07/*">2005-07</option>
+<option value="2005-10/*">2005-10</option>
+<option value="2006-01/*">2006-01</option>
+<option value="2006-04/*">2006-04</option>
+<option value="2006-07/*">2006-07</option>
+<option value="2006-10/*">2006-10</option>
+<option value="2007-01/*">2007-01</option>
+<option value="2007-04/*">2007-04</option>
+<option value="2007-07/*">2007-07</option>
+<option value="2007-10/*">2007-10</option>
+<option value="2008-01/*">2008-01</option>
+<option value="2008-04/*">2008-04</option>
+<option value="2008-07/*">2008-07</option>
+<option value="2008-10/*">2008-10</option>
+<option value="2009-01/*">2009-01</option>
+<option value="2009-04/*">2009-04</option>
+<option value="2009-07/*">2009-07</option>
+<option value="2009-10/*">2009-10</option>
+<option value="2010-01/*">2010-01</option>
+<option value="2010-04/*">2010-04</option>
+<option value="2010-07/*">2010-07</option>
+<option value="2010-10/*">2010-10</option>
+<option value="2011-01/*">2011-01</option>
+<option value="2011-04/*">2011-04</option>
+<option value="2011-07/*">2011-07</option>
+<option value="2011-10/*">2011-10</option>
+<option value="2012-01/*">2012-01</option>
+<option value="2012-04/*">2012-04</option>
+<option value="2012-07/*">2012-07</option>
+<option value="2012-10/*">2012-10</option>
+<option value="2013-01/*">2013-01</option>
+<option value="2013-04/*">2013-04</option>
+<option value="2013-07/*">2013-07</option>
+<option value="2013-10/*">2013-10</option>
+<option value="2014-01/*">2014-01</option>
+<option value="2014-04/*">2014-04</option>
+<option value="2014-07/*">2014-07</option>
+<option value="2014-10/*">2014-10</option>
+<option value="2015-01/*">2015-01</option>
+<option value="2015-04/*">2015-04</option>
+<option value="2015-07/*">2015-07</option>
+<option value="2015-10/*">2015-10</option>
+<option value="2016-01/*">2016-01</option>
+<option value="2016-04/*">2016-04</option>
+<option value="2016-07/*">2016-07</option>
+<option value="2016-10/*">2016-10</option>
+<option value="2017-01/*">2017-01</option>
+<option value="2017-04/*">2017-04</option>
+<option value="2017-07/*">2017-07</option>
+<option value="2017-10/*">2017-10</option>
+<option value="2018-01/*">2018-01</option>
+</select>
+
 <button id="safeBtn" type="button" class="btn btn-default btn-sm">
 <span class="glyphicon glyphicon-unchecked"></span> Safe Search
 </button>
@@ -82,7 +191,7 @@ Please read <a href="/faq">FAQ</a> to understand what can / cannot be searched.<
 <span style="color:#FF6D6D">Caution: some results may be NSFW (Not Safe for Work).</span><br>
 Official WebExtension available on <a href="https://chrome.google.com/webstore/detail/search-anime-by-screensho/gkamnldpllcbiidlfacaccdoadedncfp" target="_blank">Chrome</a>, <a href="https://addons.mozilla.org/en-US/firefox/addon/search-anime-by-screenshot/" target="_blank">Firefox</a>, and <a href="https://addons.opera.com/en/extensions/details/search-anime-by-screenshot/" target="_blank">Opera</a>.<br>
 Official Telegram Bot available <a href="https://telegram.me/WhatAnimeBot">@WhatAnimeBot</a><br>
-</form>
+</div>
 </div>
 <div id="info"></div>
 
@@ -95,7 +204,6 @@ Official Telegram Bot available <a href="https://telegram.me/WhatAnimeBot">@What
       <label><input type="checkbox" id="loop" name="loop" />Loop</label>
       <label><input type="checkbox" id="mute" name="mute" />Mute</label>
     </div>
-    <div class="g-recaptcha hidden" data-sitekey="6LdluhITAAAAAD4-wl-hL-gR6gxesY6b4_SZew7v" data-callback="recaptcha_success" data-size="normal"></div>
     <ul id="results" class="nav nav-pills nav-stacked"></ul>
   </div>
 </div>
@@ -116,12 +224,12 @@ Official Telegram Bot available <a href="https://telegram.me/WhatAnimeBot">@What
 </ol>
 </div>
 </footer>
-<script src="/jquery-2.1.1.min.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="/jquery.html5uploader.min.js"></script>
-<script src="/index.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/info.js"></script>
 <?php
-if(isset($_GET["url"])){
+if(isset($_GET["url"]) && filter_var($_GET["url"], FILTER_VALIDATE_URL)){
 echo '<script>
 document.querySelector("#autoSearch").checked = true;
 document.querySelector("#messageText").classList.remove("error");

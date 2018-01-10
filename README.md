@@ -20,7 +20,7 @@ Demo image
 
 Search result tells you which moment it appears.
 
-![](https://addons.cdn.mozilla.net/user-media/previews/full/175/175674.png)
+![](https://images.plurk.com/Q4Fg23pngZ2KparzGfqw.jpg)
 
 ## How does it work
 
@@ -28,13 +28,15 @@ This repo for studying purpose only. Some settings and config are not included, 
 
 You may read a brief [Presentation slides](https://go-talks.appspot.com/github.com/soruly/slides/whatanime.ga.slide) given in May 2016
 
+And [Presentation slides](https://go-talks.appspot.com/github.com/soruly/slides/whatanime.ga-2017.slide) given in Jun 2017
+
 System Overview
 
 ![](https://pbs.twimg.com/media/CstZmrxUIAAi8La.jpg)
 
 You may find some other component here
 
-- [LireSolr](https://bitbucket.org/dermotte/liresolr) developed by Mathias Lux
+- [LireSolr](https://github.com/soruly/liresolr)
 
 - [Shell Script and Python script for analyzing video for LireSolr](https://gist.github.com/soruly/032613e350cdbbe7b0dbe4a7f60bbefd)
 
@@ -52,6 +54,15 @@ https://github.com/soruly/whatanime.ga-telegram-bot
 
 ## Official API (Beta)
 https://soruly.github.io/whatanime.ga/
+
+## Mobile Apps
+WhatAnime by Andrée Torres
+https://play.google.com/store/apps/details?id=com.maddog05.whatanime
+Source: https://github.com/maddog05/whatanime-android
+
+WhatAnime - 以图搜番 by Mystery0 (Simplified Chinese)
+https://play.google.com/store/apps/details?id=pw.janyo.whatanime
+Source: https://github.com/JanYoStudio/WhatAnime
 
 ## Integrating search with whatanime.ga
 To add whatanime.ga as a search option for your site, pass the image URL via query string like this
